@@ -85,7 +85,7 @@ def init():
         res, info = get_result(input_value)
         LOGGER.add_info(info)
     return render_template('index.html', res=res, input_value=input_value)
-и
+
 
 if __name__ == '__main__':
     # app.run(host='0.0.0.0')
