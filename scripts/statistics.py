@@ -48,12 +48,12 @@ def iteration_length(log, file_path):
     if log:
         df = pd.DataFrame(log)
         x_name = 'iteration'
-        y_name = 'length'
+        y_name = 'execution_time'
         x = list(map(lambda x: int(x), list(df[x_name])))
         y = list(map(lambda x: float(x), list(df[y_name])))
 
         return get_plt(df=df, x=x, y=y, file_path=file_path,
-                       x_label='Время выполнения алгоритма', y_label='Номер итерации',
+                       x_label='Номер итерации', y_label='Время выполнения алгоритма',
                        title='Зависимость количества результатов от количества итераций')
     else:
         return 'Лог пуст'

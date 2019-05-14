@@ -63,6 +63,7 @@ def login(username, password):
 
 @app.route('/load', defaults={'path': None})
 @app.route('/load:<path>')
+@auth.login_required
 def logger_load(path=None):
     LOGGER.load_log(path)
     return "Лог загружен"

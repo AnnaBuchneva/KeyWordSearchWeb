@@ -4,9 +4,10 @@ from scripts.scoring import segment
 from scripts.grammar import make_n_gramms, lemm_list, normalize_hashtag, get_words
 
 
+# Коэффициент достоверности поиска по n-граммам
 glob_gramms_acception = 0.7
 
-# Коэффициент достоверности нечеткого поиска
+# Коэффициент достоверности нечеткого поиска по словам
 glob_words_acception = 0.6
 
 # Минимальный возможный порог совпадения слов по n-граммам
@@ -84,7 +85,7 @@ def update_result(hashtags, *args):
     max_frequency = max([result[key]['frequency'] for key in result]) if result else 1
     for element in result:
         result[element]['total'] = round((0.7*result[element]['probability'])
-                                         +(0.3*result[element]['frequency']/max_frequency), 5)
+                                         + (0.3*result[element]['frequency']/max_frequency), 5)
     return result
 
 
