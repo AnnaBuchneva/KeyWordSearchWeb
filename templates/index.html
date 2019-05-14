@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Key Word Search</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="/static/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="shortcut icon" href="/static/icon.ico">
+    <script src="/static/sorter.js"></script>
+    <style> body { background-size: 100% auto;} </style>
+</head>
+<body>
+	<div class="container">
+		<form class="form-inline" method=post action='/'>
+			<div style="margin: 5px;">
+				<input type="text" name="hashtag" placeholder="Введите хэштег..."
+					   required="" value="{{ input_value }}">
+				<button type="submit" name="get_hashtag">Получить результат</button>
+			</div>
+    	</form>
+		<br>
+		<div class="result">
+        {% if res %}
+			<table class="sortable table-responsive">
+				<thead>
+					<tr>
+						<th data-col="hashtag" 		class="col1">Хэштег</th>
+						<th data-col="probability" 	class="col2" data-type="number">Вероятность</th>
+						<th data-col="frequency" 	class="col3" data-type="number">Частота</th>
+						<th data-col="total" 		class="col4" data-type="number">Итог</th>
+					</tr>
+				</thead>
+				<tbody>
+                {% for el in res %}
+                    <tr>
+                        <td class="col1" data-value="{{ el[0] }}">
+							<a href="https://www.instagram.com/explore/tags/{{ el[0] }}" target="_blank">#{{ el[0] }}</a></td>
+						<td class="col2" data-value="{{ el[1]['probability'] }}">{{ el[1]['probability'] }}</td>
+						<td class="col3" data-value="{{ el[1]['frequency'] }}">{{ el[1]['frequency'] }}</td>
+						<td class="col4" data-value="{{ el[1]['total'] }}">{{ el[1]['total'] }}</td>
+                    </tr>
+                {% endfor %}
+				</tbody>
+			</table>
+        {% endif %}
+		</div>
+	</div>
+</body>
+</html>

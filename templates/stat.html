@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Key Word Search</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="/static/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="shortcut icon" href="/static/icon.ico">
+    <script src="/static/sorter.js"></script>
+    <style> body { background-size: 100% auto;} </style>
+</head>
+<body>
+	<div class="container">
+        <div style="display: inline-block;">
+        {% for image in stat_image %}
+            <div style="width:50%; float:left;">
+                <img src="{{ url_for('static', filename=image) }}" alt="{{ image }}" style="width:100%"/>
+            </div>
+        {% endfor %}
+        </div>
+        <br>
+        {% if stat_table %}
+		<div class="result">
+			<table class="sortable">
+				<thead>
+					<tr>
+						<th data-col="time" class="col1">Дата и время</th>
+						<th data-col="input" class="col2">Ввод</th>
+						<th data-col="words" class="col3">Слова</th>
+						<th data-col="length" class="col4" data-type="number">Результат</th>
+					    <th data-col="iteration" class="col4" data-type="number">Итерация</th>
+                        <th data-col="execution_time" class="col4" data-type="number">Время выполнения</th>
+                    </tr>
+				</thead>
+				<tbody>
+                {% for el in stat_table %}
+                    <tr>
+                        <td style="padding-left: 40px;" data-value="{{ el['time'] }}">{{ el['time'] }}</td>
+						<td data-value="{{ el['input'] }}">{{ el['input'] }}</td>
+						<td data-value="{{ el['words'] }}">{{ el['words'] }}</td>
+						<td data-value="{{ el['length'] }}">{{ el['length'] }}</td>
+                        <td data-value="{{ el['iteration'] }}">{{ el['iteration'] }}</td>
+                        <td data-value="{{ el['execution_time'] }}">{{ el['execution_time'] }}</td>
+                    </tr>
+                {% endfor %}
+				</tbody>
+			</table>
+		</div>
+        {% endif %}
+	</div>
+</body>
+</html>
