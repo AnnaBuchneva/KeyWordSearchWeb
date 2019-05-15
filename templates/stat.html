@@ -14,7 +14,7 @@
         <div style="display: inline-block;">
         {% for image in stat_image %}
             <div style="width:50%; float:left;">
-                <img src="{{ url_for('logs', filename=image) }}" alt="{{ image }}" style="width:100%"/>
+                <img src="{{ image }}" alt="{{ image }}" style="width:100%"/>
             </div>
         {% endfor %}
         </div>

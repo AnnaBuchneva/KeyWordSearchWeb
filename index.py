@@ -41,14 +41,14 @@ def get_statistic():
     files = []
 
     file_name = 'time_length.png'
-    file_path = os.path.abspath('logs\\'+file_name)
+    file_path = os.path.abspath('static\\'+file_name)
     time_length(LOGGER.log, file_path)
-    files.append(file_name)
+    files.append('/static/' + file_name)
 
     file_name = 'iteration_length.png'
-    file_path = os.path.abspath('logs\\'+file_name)
+    file_path = os.path.abspath('static\\'+file_name)
     iteration_length(LOGGER.log, file_path)
-    files.append(file_name)
+    files.append('/static/' + file_name)
 
     return render_template('stat.html', stat_image=files, stat_table=LOGGER.log)
 
@@ -70,6 +70,7 @@ def logger_load(path=None):
 
 
 @app.route('/save')
+@auth.login_required
 def logger_save():
     return "Лог сохранен: %s" % LOGGER.save_log()
 
@@ -90,6 +91,7 @@ def init():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
+    # app.run(host='192.168.1.71', port='50623')
     # app.debug = True
     # app.run(host='192.168.1.71')
     # app.run()
