@@ -1,4 +1,4 @@
-#!D:\Универ\Я_Диплом\KeyWordSearchWeb\venv\Scripts\python.exe
+#!D:\Users\Анна Бучнева\Документы\Git\KeyWordSearchWeb\venv\Scripts\python.exe
 import sys
 from pymorphy2 import cli
 sys.exit(cli.main())
