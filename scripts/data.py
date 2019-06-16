@@ -2,6 +2,7 @@ import pickle
 import csv
 import os
 import datrie
+import json
 from scripts.grammar import make_n_gramms, lemm_list, normalize_hashtag, get_words
 
 
@@ -113,7 +114,6 @@ def read_synonymizer(path):
     return synonymizer
 
 
-
 def create_dict():
     synonymizer = read_synonymizer("synmaster.txt")
 
@@ -131,4 +131,15 @@ def load_dict():
     with open(get_path_above("resourses\\synonymizer.pickle"), "rb") as file:
         synonymizer = pickle.load(file)
     return full_dict, synonymizer
+
+
+def json_dump(path, something):
+    json_text = "{}".format(json.dumps(something, ensure_ascii=False, indent=0))
+    with open(path, "w", encoding="utf8") as file:
+        file.write(json_text)
+
+
+def json_load(path):
+    with open(path, "r", encoding="utf8") as file:
+        return json.loads(file.read())
 

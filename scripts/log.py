@@ -17,8 +17,11 @@ class Logger:
     def add_info(self, info):
         self.log.append(info)
 
-    def save_log(self):
-        file_name = 'log{}.csv'.format(datetime.strftime(datetime.now(), "%Y%m%d%H%M%S"))
+    def save_log(self, path=None):
+        if path:
+            file_name = '{}.csv'.format(path)
+        else:
+            file_name = 'log{}.csv'.format(datetime.strftime(datetime.now(), "%Y%m%d%H%M%S"))
         file_path = os.path.join(self.log_dir, file_name)
         write_csv(file_path, self.log)
         return file_name

@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, request
 from flask_httpauth import HTTPBasicAuth
 from hashlib import md5
-from scripts.data import load_trie, load_pickle, get_path_above
+from scripts.data import load_trie, load_pickle, get_path_above, json_load
 from scripts.database import DataBase
 from scripts.log import Logger
 from scripts.key import search
@@ -88,7 +88,18 @@ def logger_save():
 
 
 def get_result(el):
-    return search(el, FULL_DICT, SYNONYMIZER, TRIE, TRIE_SLANG)
+    res, info = search(el, FULL_DICT, SYNONYMIZER, TRIE, TRIE_SLANG)
+    LOGGER.add_info(info)
+    return res
+
+
+@app.route('/test:<path>')
+@auth.login_required
+def test_search(path):
+    test_list = json_load(path)
+    for el in test_list:
+        get_result(el)
+    return "Тестирование завершено"
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -96,8 +107,7 @@ def init():
     res = []
     input_value = request.form.get('hashtag', "")
     if input_value:
-        res, info = get_result(input_value)
-        LOGGER.add_info(info)
+        res = get_result(input_value)
     return render_template('index.html', res=res, input_value=input_value)
 
 
