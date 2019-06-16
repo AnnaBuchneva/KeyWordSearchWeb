@@ -6,7 +6,7 @@ from scripts.data import load_trie, load_pickle, get_path_above
 from scripts.database import DataBase
 from scripts.log import Logger
 from scripts.key import search
-from scripts.statistics import time_length, iteration_length
+from scripts.statistics import time_length, iteration_time, iteration_length
 
 app = Flask(__name__)
 auth = HTTPBasicAuth()
@@ -45,10 +45,15 @@ def get_statistic():
     time_length(LOGGER.log, file_path)
     files.append('/static/' + file_name)
 
+    file_name = 'iteration_time.png'
+    file_path = os.path.abspath('static\\'+file_name)
+    iteration_time(LOGGER.log, file_path)
+    files.append('/static/' + file_name)
+
     file_name = 'iteration_length.png'
     file_path = os.path.abspath('static\\'+file_name)
     iteration_length(LOGGER.log, file_path)
-    files.append('/static/' + file_name)
+    # files.append('/static/' + file_name)
 
     return render_template('stat.html', stat_image=files, stat_table=LOGGER.log)
 
@@ -67,6 +72,13 @@ def login(username, password):
 def logger_load(path=None):
     LOGGER.load_log(path)
     return "Лог загружен"
+
+
+@app.route('/clear')
+@auth.login_required
+def logger_clear():
+    LOGGER.clear_log()
+    return "Лог очищен"
 
 
 @app.route('/save')
@@ -90,7 +102,7 @@ def init():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port='5000')
     # app.run(host='192.168.1.71', port='50623')
     # app.debug = True
     # app.run(host='192.168.1.71')

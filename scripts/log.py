@@ -11,7 +11,8 @@ class Logger:
         self.log_dir = os.path.abspath(log_dir)
 
     def __del__(self):
-        self.save_log()
+        if self.log:
+            self.save_log()
 
     def add_info(self, info):
         self.log.append(info)
@@ -30,3 +31,6 @@ class Logger:
                 path = max(list_of_files, key=os.path.getctime)
         if path:
             self.log = read_csv(path)
+
+    def clear_log(self):
+        self.log = []
