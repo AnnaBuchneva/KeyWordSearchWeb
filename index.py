@@ -111,6 +111,13 @@ def init():
     return render_template('index.html', res=res, input_value=input_value)
 
 
+@app.after_request
+def add_header(response):
+    response.headers['X-UA-Compatible'] = 'IE=Edge,chrome=1'
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    return response
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
     # app.run(host='192.168.1.71', port='50623')
